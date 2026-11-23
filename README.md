@@ -55,6 +55,8 @@ https://github.com/RensAlthuis/vertical-overview/issues/7#issuecomment-816054137
 
 
 ## Donations
+> **Note (FOSSH Lab fork):** the donation button below goes to Rens Althuis, the original author, as a thanks for creating this extension. It does not fund the maintenance of this fork. The text below is the original author's.
+
 I never expected this to be something I have to consider. I really don't expect anyone to donate, nor do I want anyone to feel obligated to do so. I do this because I enjoy it and will for sure keeping working on it as long as I can. However multiple people have asked me to make a donation button, so here it is. If you are considering donating, Thank you so much! I really appreciate it.
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate?hosted_button_id=8JSADCLQR58KJ)
