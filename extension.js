@@ -1,4 +1,4 @@
-const __DEBUG__ = true;
+const __DEBUG__ = false;
 
 const { Gio, Meta, Shell, Clutter, GObject, Graphene, St } = imports.gi;
 const WindowManager = imports.ui.windowManager;

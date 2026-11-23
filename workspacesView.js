@@ -15,11 +15,9 @@ const Util = Self.imports.util;
 
 function override() {
     global.vertical_overview.GSFunctions['WorkspacesView'] = Util.overrideProto(WorkspacesView.WorkspacesView.prototype, WorkspacesViewOverride);
-    log('You may see an error below,\nSecondaryMonitorDisplay is defined as const for some reason\nSince I\'m overriding values in that const an error show might show up.\n Feel free to ignore it');
     SecondaryMonitorDisplay = WorkspacesView.SecondaryMonitorDisplay;
 
     global.vertical_overview.GSFunctions['SecondaryMonitorDisplay'] = Util.overrideProto(WorkspacesView.SecondaryMonitorDisplay.prototype, SecondaryMonitorDisplayOverride);
-    log('Thank you, please carry on');
 
     if (global.vertical_overview.default_old_style_enabled) {
         Main.overview._overview._controls._workspacesDisplay.add_style_class_name("vertical-overview");
