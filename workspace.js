@@ -48,15 +48,17 @@ function staticBackgroundOverride() {
             }
         }
         set_backgrounds();
-        global.vertical_overview.bgMonitorsChangedID = Main.layoutManager.connectObject('monitors-changed', set_backgrounds)
+        global.vertical_overview.bgMonitorsChangedID = Main.layoutManager.connect('monitors-changed', set_backgrounds);
         staticBackgroundEnabled = true;
     }
 }
 
 function staticBackgroundReset() {
     if (staticBackgroundEnabled) {
-        Main.layoutManager.disconnectObject(global.vertical_overview.bgMonitorChangedID);
-        global.vertical_overview.bgMonitorChangedID = null;
+        // Was misspelled (bgMonitorChangedID) and used disconnectObject() with
+        // a handler id, so the handler was never removed.
+        Main.layoutManager.disconnect(global.vertical_overview.bgMonitorsChangedID);
+        global.vertical_overview.bgMonitorsChangedID = 0;
         for (var bg of global.vertical_overview.bgManagers) {
             Main.overview._overview._controls._stateAdjustment.disconnectObject(bg);
             bg.destroy();
@@ -97,7 +99,7 @@ function reset() {
     _Util.overrideProto(Workspace.WorkspaceLayout.prototype, global.vertical_overview.GSFunctions["WorkspaceLayout"]);
 }
 
-WorkspaceOverride = {
+var WorkspaceOverride = {
     _init: function (metaWorkspace, monitorIndex, overviewAdjustment) {
         St.Widget.prototype._init.call(this, {
             style_class: 'window-picker',

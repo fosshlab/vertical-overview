@@ -36,6 +36,7 @@ function reset() {
     Util.overrideProto(WorkspaceThumbnail.ThumbnailsBox.prototype, global.vertical_overview.GSFunctions['ThumbnailsBox']);
     Util.overrideProto(WorkspaceThumbnail.WorkspaceThumbnail.prototype, global.vertical_overview.GSFunctions['WorkspaceThumbnail']);
     Main.overview._overview._controls._thumbnailsBox.x_align = Clutter.ActorAlign.CENTER;
+    Main.overview._overview._controls._thumbnailsBox.remove_style_class_name("vertical-overview");
 }
 
 function thumbnails_old_style() {
