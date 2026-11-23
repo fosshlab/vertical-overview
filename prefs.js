@@ -1,4 +1,4 @@
-const __DEBUG__ = true;
+const __DEBUG__ = false;
 const { GObject, Gtk } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Self = ExtensionUtils.getCurrentExtension();

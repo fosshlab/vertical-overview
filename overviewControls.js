@@ -36,8 +36,8 @@ function override() {
     global.vertical_overview.GSFunctions['ControlsManager'] = _Util.overrideProto(OverviewControls.ControlsManager.prototype, ControlsManagerOverride);
 
     let controlsManager = Main.overview._overview._controls;
-    global.vertical_overview._updateID = controlsManager._stateAdjustment.connectObject("notify::value", _updateWorkspacesDisplay.bind(controlsManager));
-    global.vertical_overview._workspaceDisplayVisibleID = controlsManager._workspacesDisplay.connectObject("notify::visible", controlsManager._workspacesDisplay._updateWorkspacesViews.bind(controlsManager._workspacesDisplay));
+    global.vertical_overview._updateID = controlsManager._stateAdjustment.connect("notify::value", _updateWorkspacesDisplay.bind(controlsManager));
+    global.vertical_overview._workspaceDisplayVisibleID = controlsManager._workspacesDisplay.connect("notify::visible", controlsManager._workspacesDisplay._updateWorkspacesViews.bind(controlsManager._workspacesDisplay));
 }
 
 function reset() {
@@ -45,8 +45,8 @@ function reset() {
     _Util.overrideProto(OverviewControls.ControlsManager.prototype, global.vertical_overview.GSFunctions['ControlsManager']);
 
     let controlsManager = Main.overview._overview._controls;
-    controlsManager._stateAdjustment.disconnectObject(global.vertical_overview._updateID);
-    controlsManager._workspacesDisplay.disconnectObject(global.vertical_overview._workspaceDisplayVisibleID);
+    controlsManager._stateAdjustment.disconnect(global.vertical_overview._updateID);
+    controlsManager._workspacesDisplay.disconnect(global.vertical_overview._workspaceDisplayVisibleID);
     controlsManager._workspacesDisplay.reactive = true;
     controlsManager._workspacesDisplay.setPrimaryWorkspaceVisible(true);
 }
@@ -141,9 +141,9 @@ var ControlsManagerLayoutOverride = {
                     let [w, h] = Main.layoutManager.panelBox.get_size();
                     let [x, y] = Main.layoutManager.panelBox.get_transformed_position();
                     if (x > 0) { // if x > 0 assume panel is on the right side
-                        workspaceBox.set_size(width - w, box.y2);
+                        workspaceBox.set_size(width - w, workAreaBox.y2);
                     } else {
-                        workspaceBox.set_origin(w / 2, box.y1);
+                        workspaceBox.set_origin(w / 2, workAreaBox.y1);
                     }
                 }
             break;
@@ -315,8 +315,8 @@ var ControlsManagerOverride = {
             this._stateAdjustment.getStateTransitionParams();
 
         const paramsForState = s => {
-            opacity = 255;
-            scale = 1;
+            const opacity = 255;
+            const scale = 1;
             return { opacity, scale } ;
         };
 

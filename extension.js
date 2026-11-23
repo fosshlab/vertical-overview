@@ -78,7 +78,11 @@ function _reload() {
     } catch (e) {
         logError(e, '[VERTICAL-OVERVIEW] error while disabling during reload');
     }
-    _enable();
+    try {
+        _enable();
+    } catch (e) {
+        logError(e, '[VERTICAL-OVERVIEW] error while re-enabling during reload');
+    }
     if (__DEBUG__) global.log('[VERTICAL-OVERVIEW] reloaded after monitor change');
 }
 
@@ -122,6 +126,10 @@ function _disable() {
     for (var key in global.vertical_overview.settings.signals) {
         Util.unbindSetting(key);
     };
+
+    // Give the top panel its overview style back ('panel-in-overview').
+    if (global.vertical_overview.panel_signal_found)
+        global.vertical_overview.panel_signal.disconnected = false;
 
     delete global.vertical_overview;
     if (__DEBUG__) global.log("[VERTICAL-OVERVIEW] disabled");

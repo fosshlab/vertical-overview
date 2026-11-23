@@ -13,11 +13,18 @@ const Main = imports.ui.main;
 const Self = imports.misc.extensionUtils.getCurrentExtension();
 const Util = Self.imports.util;
 
+// SecondaryMonitorDisplay is declared with `const` in GNOME Shell's
+// workspacesView.js, so it is not a proper module export. GJS still resolves
+// it through a deprecated fallback (and logs a warning), but the first access
+// only triggers that lookup and returns undefined; later accesses return the
+// class. Hence the double read.
+function _getSecondaryMonitorDisplay() {
+    return WorkspacesView.SecondaryMonitorDisplay ?? WorkspacesView.SecondaryMonitorDisplay;
+}
+
 function override() {
     global.vertical_overview.GSFunctions['WorkspacesView'] = Util.overrideProto(WorkspacesView.WorkspacesView.prototype, WorkspacesViewOverride);
-    SecondaryMonitorDisplay = WorkspacesView.SecondaryMonitorDisplay;
-
-    global.vertical_overview.GSFunctions['SecondaryMonitorDisplay'] = Util.overrideProto(WorkspacesView.SecondaryMonitorDisplay.prototype, SecondaryMonitorDisplayOverride);
+    global.vertical_overview.GSFunctions['SecondaryMonitorDisplay'] = Util.overrideProto(_getSecondaryMonitorDisplay().prototype, SecondaryMonitorDisplayOverride);
 
     if (global.vertical_overview.default_old_style_enabled) {
         Main.overview._overview._controls._workspacesDisplay.add_style_class_name("vertical-overview");
@@ -26,7 +33,7 @@ function override() {
 
 function reset() {
     Util.overrideProto(WorkspacesView.WorkspacesView.prototype, global.vertical_overview.GSFunctions['WorkspacesView']);
-    Util.overrideProto(WorkspacesView.SecondaryMonitorDisplay.prototype, global.vertical_overview.GSFunctions['SecondaryMonitorDisplay']);
+    Util.overrideProto(_getSecondaryMonitorDisplay().prototype, global.vertical_overview.GSFunctions['SecondaryMonitorDisplay']);
     if (global.vertical_overview.default_old_style_enabled) {
         Main.overview._overview._controls._workspacesDisplay.remove_style_class_name("vertical-overview");
     }

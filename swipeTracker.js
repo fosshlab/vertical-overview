@@ -113,8 +113,7 @@ const TouchpadSwipeGesture = GObject.registerClass({
             schema_id: 'org.gnome.desktop.peripherals.touchpad',
         });
 
-        this._stageCaptureEvent =
-            global.stage.connectObject('captured-event::touchpad', this._handleEvent.bind(this));
+        global.stage.connectObject('captured-event::touchpad', this._handleEvent.bind(this), this);
     }
 
     _handleEvent(actor, event) {
@@ -204,10 +203,7 @@ const TouchpadSwipeGesture = GObject.registerClass({
     }
 
     destroy() {
-        if (this._stageCaptureEvent) {
-            global.stage.disconnectObject(this._stageCaptureEvent);
-            delete this._stageCaptureEvent;
-        }
+        global.stage.disconnectObject(this);
     }
 });
 
@@ -239,7 +235,7 @@ const TouchSwipeGesture = GObject.registerClass({
 
         global.display.connectObject('grab-op-begin', () => {
             this.cancel();
-        });
+        }, this);
 
         this._lastPosition = 0;
     }
@@ -334,7 +330,13 @@ const ScrollGesture = GObject.registerClass({
         this._began = false;
         this._enabled = true;
 
-        actor.connectObject('scroll-event', this._handleEvent.bind(this));
+        this._actor = actor;
+        actor.connectObject('scroll-event', this._handleEvent.bind(this), this);
+    }
+
+    destroy() {
+        this._actor?.disconnectObject(this);
+        this._actor = null;
     }
 
     get enabled() {
@@ -784,8 +786,20 @@ var SwipeTracker = GObject.registerClass({
         }
 
         if (this._touchGesture) {
+            global.display.disconnectObject(this._touchGesture);
             global.stage.remove_action(this._touchGesture);
             delete this._touchGesture;
+        }
+
+        if (this._dragGesture) {
+            global.display.disconnectObject(this._dragGesture);
+            this._dragGesture.get_actor()?.remove_action(this._dragGesture);
+            this._dragGesture = null;
+        }
+
+        if (this._scrollGesture) {
+            this._scrollGesture.destroy();
+            this._scrollGesture = null;
         }
     }
 });
