@@ -1,0 +1,56 @@
+name: Bug report
+description: Something doesn't work as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a problem! Reports in English or Spanish are welcome.
+        Si preferís, podés escribir en español.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Extension version
+      description: "Run: gnome-extensions info vertical-overview@RensAlthuis.github.com"
+      placeholder: "11"
+    validations:
+      required: true
+  - type: input
+    id: shell
+    attributes:
+      label: GNOME Shell version
+      description: "Run: gnome-shell --version"
+      placeholder: GNOME Shell 42.9
+    validations:
+      required: true
+  - type: dropdown
+    id: session
+    attributes:
+      label: Session type
+      description: "Run: echo $XDG_SESSION_TYPE"
+      options: [X11, Wayland]
+    validations:
+      required: true
+  - type: input
+    id: distro
+    attributes:
+      label: Distribution
+      placeholder: Ubuntu 22.04
+  - type: textarea
+    id: setup
+    attributes:
+      label: Monitors and other extensions
+      description: Number of monitors (and whether you dock/undock), and the list from `gnome-extensions list --enabled`.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: "Errors from the journal, e.g. `journalctl -b /usr/bin/gnome-shell | grep -iE 'vertical|JS ERROR'`"
+      render: text

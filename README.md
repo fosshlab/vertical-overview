@@ -3,7 +3,7 @@
 >
 > Supported GNOME Shell versions: **42 and 43**. Porting to GNOME 45+ is planned.
 >
-> Issues and pull requests are welcome here: https://github.com/fosshlab/vertical-overview/issues
+> Issues and pull requests are welcome here: https://github.com/fosshlab/vertical-overview/issues. Questions and ideas: [Discussions](https://github.com/fosshlab/vertical-overview/discussions). See [CONTRIBUTING.md](CONTRIBUTING.md). English or Spanish are both fine.
 
 ## Changes in this fork
 
