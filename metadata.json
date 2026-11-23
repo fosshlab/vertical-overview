@@ -1,12 +1,12 @@
 {
-    "name" : "Vertical overview",
-    "description" : "Bringing back vertically stacked workspaces",
+    "name": "Vertical overview",
+    "description": "Bringing back vertically stacked workspaces",
     "original-author": "rens.althuis@gmail.com",
-    "shell-version" : [
+    "shell-version": [
         "42",
         "43"
     ],
-    "url" : "https://github.com/RensAlthuis/vertical-overview",
-    "uuid" : "vertical-overview@RensAlthuis.github.com",
-    "version" : "9"
+    "url": "https://github.com/fosshlab/vertical-overview",
+    "uuid": "vertical-overview@RensAlthuis.github.com",
+    "version": 11
 }

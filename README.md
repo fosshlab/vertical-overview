@@ -1,5 +1,17 @@
 # Vertical Overview
-**Quick note**: If you run in to issues and are waiting for me to fix them, I apologise in advance. Unfortunately I do not have the time to properly maintain this extension. I do on occasion come back to it (mostly when my own install breaks). However, extensions have a tendency to break with every update and this one modifies a lot of important code. Luckily @G-dH is writing a new vertical workspace extension, that might be worth a shot. You can find it here: [Link](https://github.com/G-dH/vertical-workspaces)
+> **This is the maintained fork of [RensAlthuis/vertical-overview](https://github.com/RensAlthuis/vertical-overview)**, kept by the [FOSSH Lab](https://github.com/fosshlab) (Free Software and Hardware Lab). In [#128](https://github.com/RensAlthuis/vertical-overview/issues/128) the original author announced that the extension is no longer maintained and offered to hand it over; we have offered to take it on there. All credit for the extension goes to Rens Althuis and its contributors.
+>
+> Supported GNOME Shell versions: **42 and 43**. Porting to GNOME 45+ is planned.
+>
+> Issues and pull requests are welcome here: https://github.com/fosshlab/vertical-overview/issues
+
+## Changes in this fork
+
+### v11
+- Workspace thumbnails come back after monitors are disconnected and reconnected (docking/undocking, monitors waking up). Previously they disappeared until the extension was reloaded. (upstream PR [#133](https://github.com/RensAlthuis/vertical-overview/pull/133))
+- Guards against an empty workspace list while the overview is torn down.
+- Includes the upstream fix for `connectObject()`/`disconnectObject()` ([#116](https://github.com/RensAlthuis/vertical-overview/pull/116)), which was never released on extensions.gnome.org.
+- Debug logging turned off by default.
 
 ## Description
 Gnome has had vertically stacked workspaces for a long time. The Gnome 40 update unfortunately made the switch to a horizontal layout. A choice that many Gnome users disagree with. This extension Aims to replace the new Gnome overview with something that resembles the old style. 
@@ -9,11 +21,16 @@ Gnome has had vertically stacked workspaces for a long time. The Gnome 40 update
 ![vertical-overview](https://user-images.githubusercontent.com/12956267/116825963-f0977f00-ab91-11eb-953a-ea891389ddf9.gif)
 
 ## Installation:
-You install it through [Gnome Extensions](https://extensions.gnome.org/extension/4144/vertical-overview/).
+The version on [Gnome Extensions](https://extensions.gnome.org/extension/4144/vertical-overview/) is the original v10, without the fixes above.
 
-Or you can install it manually:
+To install this fork, download the zip from the [latest release](https://github.com/fosshlab/vertical-overview/releases/latest) and run:
 ```
-git clone https://github.com/RensAlthuis/vertical-overview.git
+gnome-extensions install --force vertical-overview@RensAlthuis.github.com.zip
+```
+
+Or build it from source:
+```
+git clone https://github.com/fosshlab/vertical-overview.git
 cd vertical-overview
 make
 make install
